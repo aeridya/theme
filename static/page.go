@@ -4,10 +4,11 @@ import (
 	"html/template"
 
 	"github.com/aeridya/core"
+	"github.com/aeridya/page"
 )
 
 type Page struct {
-	core.Page
+	page.Page
 
 	Templates []string
 	PageTemp  *template.Template

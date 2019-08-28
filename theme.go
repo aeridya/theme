@@ -2,6 +2,7 @@ package theme
 
 import (
 	"github.com/aeridya/core"
+	"github.com/aeridya/page"
 )
 
 //Option is the function type for initialization of Themes
@@ -30,4 +31,23 @@ func (t *Theme) ParseOpts(opts []Option) {
 func Register(t themer) {
 	core.Serve = t.Serve
 	core.Error = t.Error
+}
+
+func ServePage(resp *core.Response, p page.Paging) {
+	switch resp.R.Method {
+	case "GET":
+		p.Get(resp)
+	case "PUT":
+		p.Put(resp)
+	case "POST":
+		p.Post(resp)
+	case "DELETE":
+		p.Delete(resp)
+	case "OPTIONS":
+		p.Options(resp)
+	case "HEAD":
+		p.Head(resp)
+	default:
+		p.Unsupported(resp)
+	}
 }
